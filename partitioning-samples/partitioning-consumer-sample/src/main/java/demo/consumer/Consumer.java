@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package demo;
+package demo.consumer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +34,6 @@ public class Consumer {
     public void listen(@Payload String in,
                        @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
                        @Header(KafkaHeaders.OFFSET) int offset) {
-        logger.info(String.format("%-16s received from partition %-2d : %-100d", in, partition, offset));
+        logger.info(String.format("%-10s received from partition %-2d : %-100d", in, partition, offset));
     }
 }

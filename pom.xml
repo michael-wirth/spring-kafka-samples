@@ -21,6 +21,7 @@
 	<modules>
 		<module>events-samples</module>
 		<module>partitioning-samples</module>
+		<module>dlq-samples</module>
 	</modules>
 
 	<properties>

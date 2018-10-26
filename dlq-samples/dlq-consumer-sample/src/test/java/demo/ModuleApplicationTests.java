@@ -16,7 +16,6 @@
 
 package demo;
 
-import demo.consumer.PartConsumerApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

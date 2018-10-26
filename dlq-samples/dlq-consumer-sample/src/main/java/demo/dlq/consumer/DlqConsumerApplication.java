@@ -14,25 +14,16 @@
  * limitations under the License.
  */
 
-package demo;
+package demo.dlq.consumer;
 
-import demo.consumer.PartConsumerApplication;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+@SpringBootApplication
+public class DlqConsumerApplication {
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = PartConsumerApplication.class)
-@WebAppConfiguration
-@DirtiesContext
-public class ModuleApplicationTests {
-
-	@Test
-	public void contextLoads() {
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(DlqConsumerApplication.class, args);
+    }
 
 }
