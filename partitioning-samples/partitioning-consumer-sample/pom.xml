@@ -5,7 +5,7 @@
     <artifactId>partitioning-consumer-sample-kafka</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>partitioning-consumer-sample-kafka</name>
+    <name>partitioning-consumer-sample</name>
     <description>Spring Cloud Stream Partitioning Kafka</description>
 
     <parent>

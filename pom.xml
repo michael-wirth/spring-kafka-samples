@@ -19,6 +19,7 @@
 	</parent>
 
 	<modules>
+		<module>events-samples</module>
 		<module>partitioning-samples</module>
 	</modules>
 
