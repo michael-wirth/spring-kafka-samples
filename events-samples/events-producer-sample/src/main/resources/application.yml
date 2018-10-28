@@ -10,8 +10,8 @@ spring:
         output:
           destination: events.destination
           producer:
-            #            partition-key-expression: payload.id
-            partition-key-expression: payload.uuid
+            partition-key-expression: payload.id
+            #            partition-key-expression: payload.uuid
             partition-count: 12
 
 server:

@@ -5,7 +5,7 @@ spring:
         binder:
           brokers: localhost:19092,localhost:29092,localhost:39092
           autoAddPartitions: true
-          minPartitionCount: 12
+          minPartitionCount: 4
       bindings:
         input:
           destination: events.destination

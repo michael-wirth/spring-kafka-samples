@@ -20,7 +20,6 @@ public class Producer implements CommandLineRunner {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Producer.class);
 
-    private static final Random RANDOM = new Random(System.currentTimeMillis());
     private static final String[] DATA = {
             "Alfie", "Beatrice", "Charlie", "Dillon", "Emily", "Freddie",
             "Grace", "Harry", "Isabella", "Jack", "Lily", "Mia",
@@ -48,12 +47,11 @@ public class Producer implements CommandLineRunner {
         Arrays.stream(DATA)
                 .map(it -> new DeleteEvent(it.toUpperCase(), "any reason"))
                 .forEach(this::send);
-
-//        System.exit(0);
     }
 
     public void send(Object event) {
         LOGGER.info("Sending: " + event);
+
         output.send(MessageBuilder
                 .withPayload(event)
                 .setHeaderIfAbsent("type", event.getClass().getSimpleName())

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package demo.dlq.consumer;
+package demo.consumer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

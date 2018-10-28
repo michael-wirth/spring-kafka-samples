@@ -82,17 +82,17 @@ services:
     extra_hosts:
       - "moby:127.0.0.1"
 
-  control-center:
-    image: confluentinc/cp-enterprise-control-center:5.0.0
-    network_mode: host
-    hostname: control-center
-    container_name: control-center
-    environment:
-      CONTROL_CENTER_BOOTSTRAP_SERVERS: 'localhost:19092,localhost:29092,localhost:39092'
-      CONTROL_CENTER_ZOOKEEPER_CONNECT: 'localhost:12181,localhost:22181,localhost:32181'
-      CONTROL_CENTER_REPLICATION_FACTOR: 1
-      CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS: 1
-      CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
-      CONFLUENT_METRICS_TOPIC_REPLICATION: 1
-      PORT: 9021
+  # control-center:
+  #   image: confluentinc/cp-enterprise-control-center:5.0.0
+  #   network_mode: host
+  #   hostname: control-center
+  #   container_name: control-center
+  #   environment:
+  #     CONTROL_CENTER_BOOTSTRAP_SERVERS: 'localhost:19092,localhost:29092,localhost:39092'
+  #     CONTROL_CENTER_ZOOKEEPER_CONNECT: 'localhost:12181,localhost:22181,localhost:32181'
+  #     CONTROL_CENTER_REPLICATION_FACTOR: 1
+  #     CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS: 1
+  #     CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
+  #     CONFLUENT_METRICS_TOPIC_REPLICATION: 1
+  #     PORT: 9021
 

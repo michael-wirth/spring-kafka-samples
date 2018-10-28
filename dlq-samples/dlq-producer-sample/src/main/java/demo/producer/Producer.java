@@ -1,4 +1,4 @@
-package demo.dlq.producer;
+package demo.producer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

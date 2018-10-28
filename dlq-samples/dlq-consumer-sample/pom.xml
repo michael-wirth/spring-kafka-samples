@@ -28,21 +28,6 @@
         </dependency>
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>kafka-binder</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.springframework.cloud</groupId>
-                    <artifactId>spring-cloud-stream-binder-kafka</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
-
     <build>
         <plugins>
             <plugin>

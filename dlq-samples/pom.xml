@@ -5,7 +5,7 @@
     <artifactId>dlq-samples</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>dql-samples</name>
+    <name>dlq-samples</name>
     <description>Collection of Spring Cloud Stream dlq Samples</description>
 
     <modules>
