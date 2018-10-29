@@ -12,12 +12,12 @@ spring:
       bindings:
         input:
           destination: dlq.destination
-          group: dlqGroup
+          group: dlq-app
           max-attempts: 1
 
         input-error:
-          destination: error.dlq.destination.dlqGroup
-          group: dlqGroup
+          destination: error.dlq.destination.dlq-app
+          group: dlq-app
 
 server:
   port: 0

@@ -82,17 +82,37 @@ services:
     extra_hosts:
       - "moby:127.0.0.1"
 
-  # control-center:
-  #   image: confluentinc/cp-enterprise-control-center:5.0.0
-  #   network_mode: host
-  #   hostname: control-center
-  #   container_name: control-center
-  #   environment:
-  #     CONTROL_CENTER_BOOTSTRAP_SERVERS: 'localhost:19092,localhost:29092,localhost:39092'
-  #     CONTROL_CENTER_ZOOKEEPER_CONNECT: 'localhost:12181,localhost:22181,localhost:32181'
-  #     CONTROL_CENTER_REPLICATION_FACTOR: 1
-  #     CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS: 1
-  #     CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
-  #     CONFLUENT_METRICS_TOPIC_REPLICATION: 1
-  #     PORT: 9021
-
+  dataflow-server:
+    image: springcloud/spring-cloud-dataflow-server-local:latest
+    container_name: dataflow-server
+    network_mode: host
+      # ports:
+    # - "9393:9393"
+    # - "9000-9010:9000-9010"
+    environment:
+      - spring.cloud.dataflow.applicationProperties.stream.spring.cloud.stream.kafka.binder.brokers=localhost:19092,localhost:29092,localhost:39092
+      - spring.cloud.dataflow.applicationProperties.stream.spring.cloud.stream.kafka.binder.zkNodes=localhost:12181,localhost:22181,localhost:32181
+      - spring.datasource.url=jdbc:h2:tcp://localhost:18082/mem:dataflow
+    depends_on:
+      - kafka-1
+      - kafka-2
+      - kafka-3
+    volumes:
+      - $HOME/.m2:/root/.m2
+      - /tmp/dataflow:/tmp
+  app-import:
+    image: springcloud/openjdk:latest
+    network_mode: host
+    depends_on:
+      - dataflow-server
+    command: >
+      /bin/sh -c "
+        apt update; apt install netcat wget -y;
+        while ! nc -zvv localhost 9393;
+        do
+          sleep 1;
+        done;
+        wget -qO- 'http://localhost:9393/apps?force=true' --post-data='uri=http://repo.spring.io/libs-release-local/org/springframework/cloud/stream/app/spring-cloud-stream-app-descriptor/Darwin.SR2/spring-cloud-stream-app-descriptor-Darwin.SR2.stream-apps-kafka-maven';
+        echo 'Stream apps imported'
+        wget -qO- 'http://localhost:9393/apps?force=true' --post-data='uri=http://repo.spring.io/libs-snapshot/org/springframework/cloud/task/app/spring-cloud-task-app-descriptor/Dearborn.SR1/spring-cloud-task-app-descriptor-Dearborn.SR1.task-apps-maven';
+        echo 'Task apps imported'"

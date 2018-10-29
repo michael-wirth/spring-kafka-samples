@@ -1,0 +1,27 @@
+Kafka as a backbone for Spring Microservices:
+Michael Wirth
+http://www.mimacom.com
+michael.wirth@mimacom.com
+
+Spring Cloud Streams with Kafka:
+ ☐ Intro
+ ☐ Project setup https://start.spring.io/
+   Maven, Java 2.1.0-RC1
+   Dependencies: Cloud Stream, Kafka, Devtools
+ ☐ Kafka Cluster with Docker
+ ☐ Binding Streams
+ ☐ Spring Integration - InboundChannelAdapter
+ ☐ Partitions
+ ☐ Event handling
+ ☐ Dead Letter Queue
+
+Spring Cloud Data Flow:
+  Create sample streams at: http://localhost:9393
+  ☐ time to log
+    stream> time | transform --expression='new StringBuilder(payload).reverse().toString()' | log
+  ☐ http to log
+    stream> http --port=18080 | transform --expression='new String(payload).toUpperCase()' | log --expression='payload.concat(" ").concat(headers.toString())'
+  ☐ existing topic to log
+    streak> :events.destination > log
+    app parameter> spring.cloud.stream.bindings.input.consumer.concurrency=4
+
