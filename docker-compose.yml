@@ -1,5 +1,5 @@
 ---
-version: '2'
+version: '3'
 services:
   zookeeper-1:
     image: confluentinc/cp-zookeeper:latest
@@ -86,9 +86,6 @@ services:
     image: springcloud/spring-cloud-dataflow-server-local:latest
     container_name: dataflow-server
     network_mode: host
-      # ports:
-    # - "9393:9393"
-    # - "9000-9010:9000-9010"
     environment:
       - spring.cloud.dataflow.applicationProperties.stream.spring.cloud.stream.kafka.binder.brokers=localhost:19092,localhost:29092,localhost:39092
       - spring.cloud.dataflow.applicationProperties.stream.spring.cloud.stream.kafka.binder.zkNodes=localhost:12181,localhost:22181,localhost:32181
