@@ -5,13 +5,26 @@ spring:
         binder:
           brokers: localhost:19092,localhost:29092,localhost:39092
           autoAddPartitions: true
-          minPartitionCount: 4
+        bindings:
+          functionRouter-out-0:
+            producer:
+              topic:
+                properties:
+                  retention.ms: 1000
+
       bindings:
-        input:
+        functionRouter-in-0:
           destination: events.destination
           group: event-app
           consumer:
             concurrency: 12
+        functionRouter-out-0:
+          destination: null.channel
+          producer:
+            partition-count: 1
+
+    function:
+      routing-expression: "'handle'+headers['type']"
 
 server:
   port: 0

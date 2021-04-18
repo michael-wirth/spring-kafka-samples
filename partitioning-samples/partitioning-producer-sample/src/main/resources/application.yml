@@ -7,7 +7,7 @@ spring:
           autoAddPartitions: true
 
       bindings:
-        output:
+        nameSupplier-out-0:
           destination: partitioned.destination
           producer:
             partition-key-expression: headers['partitionKey']

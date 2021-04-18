@@ -7,7 +7,7 @@ spring:
           autoAddPartitions: true
 
       bindings:
-        output:
+        sendMessage-out-0:
           destination: dlq.destination
 
 server:

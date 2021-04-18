@@ -18,24 +18,32 @@ package demo.consumer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
+import org.springframework.context.annotation.Bean;
+import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.stereotype.Component;
 
+import java.util.function.Consumer;
+
+import static java.lang.String.format;
 import static org.springframework.kafka.support.KafkaHeaders.OFFSET;
 import static org.springframework.kafka.support.KafkaHeaders.RECEIVED_PARTITION_ID;
 
-@EnableBinding(Sink.class)
-public class Consumer {
+@Component
+public class MessageConsumer {
 
-    private static final Logger logger = LoggerFactory.getLogger(Consumer.class);
+    private static final Logger logger = LoggerFactory.getLogger(MessageConsumer.class);
 
-    @StreamListener(Sink.INPUT)
-    public void listen(@Payload String in,
-                       @Header(RECEIVED_PARTITION_ID) int partition,
-                       @Header(OFFSET) int offset) {
-        logger.info(String.format("%-10s received from partition %-2d : %-100d", in, partition, offset));
+    @Bean
+    public Consumer<Message<String>> nameConsumer() {
+        return (message) ->
+                logger.info(
+                        format("%-10s received from partition %-2d : %-100d",
+                                message.getPayload(),
+                                message.getHeaders().get(RECEIVED_PARTITION_ID, Integer.class),
+                                message.getHeaders().get(OFFSET, Long.class)));
     }
 }

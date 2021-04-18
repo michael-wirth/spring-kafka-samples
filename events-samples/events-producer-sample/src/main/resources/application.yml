@@ -7,12 +7,15 @@ spring:
           autoAddPartitions: true
 
       bindings:
-        output:
+        eventSupplier-out-0:
           destination: events.destination
           producer:
             partition-key-expression: payload.id
             #            partition-key-expression: payload.uuid
             partition-count: 12
+
+      poller:
+        max-messages-per-poll: 100
 
 server:
   port: 0

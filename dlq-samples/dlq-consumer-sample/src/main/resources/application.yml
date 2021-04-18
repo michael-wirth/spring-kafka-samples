@@ -6,18 +6,22 @@ spring:
           brokers: localhost:19092,localhost:29092,localhost:39092
           autoAddPartitions: true
         bindings:
-          input:
+          handleMessage-in-0:
             consumer:
               enableDlq: true
+
       bindings:
-        input:
+        handleMessage-in-0:
           destination: dlq.destination
           group: dlq-app
           max-attempts: 1
 
-        input-error:
+        handleError-in-0:
           destination: error.dlq.destination.dlq-app
           group: dlq-app
+
+    function:
+      definition: handleMessage;handleError
 
 server:
   port: 0
