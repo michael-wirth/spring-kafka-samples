@@ -26,10 +26,13 @@ public class Producer implements CommandLineRunner {
             "Noah", "Oscar", "Sophia", "Zoe"
     };
 
-    private Random random = new Random();
+    private final Random random = new Random();
 
-    @Autowired
-    private MessageChannel output;
+    private final MessageChannel output;
+
+    public Producer(MessageChannel output) {
+        this.output = output;
+    }
 
     @Override
     public void run(String... args) throws Exception {

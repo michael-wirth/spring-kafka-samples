@@ -24,9 +24,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
-import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
+
+import static org.springframework.kafka.support.KafkaHeaders.RECEIVED_PARTITION_ID;
 
 @EnableBinding(Sink.class)
 public class Consumer {
@@ -35,19 +36,19 @@ public class Consumer {
 
     @StreamListener(value = Sink.INPUT, condition = "headers['type']=='CreateEvent'")
     public void handleCreateEvent(@Payload CreateEvent in,
-                                  @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition) {
+                                  @Header(RECEIVED_PARTITION_ID) int partition) {
         logger.info(String.format("Event received from partition %-2d : %s", partition, in));
     }
 
     @StreamListener(value = Sink.INPUT, condition = "headers['type']=='ModifyEvent'")
     public void handleModifyEvent(@Payload ModifyEvent in,
-                                  @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition) {
+                                  @Header(RECEIVED_PARTITION_ID) int partition) {
         logger.info(String.format("Event received from partition %-2d : %s", partition, in));
     }
 
     @StreamListener(value = Sink.INPUT, condition = "headers['type']=='DeleteEvent'")
     public void handleDeleteEvent(@Payload DeleteEvent in,
-                                  @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition) {
+                                  @Header(RECEIVED_PARTITION_ID) int partition) {
         logger.info(String.format("Event received from partition %-2d : %s", partition, in));
     }
 }

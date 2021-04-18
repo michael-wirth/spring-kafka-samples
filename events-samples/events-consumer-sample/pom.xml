@@ -6,7 +6,6 @@
     <artifactId>events-consumer-sample-kafka</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>events-consumer-sample</name>
     <description>Spring Cloud Stream events Kafka</description>
 
     <parent>
@@ -15,19 +14,6 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../..</relativePath>
     </parent>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-stream-test-support</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 
     <build>
         <plugins>

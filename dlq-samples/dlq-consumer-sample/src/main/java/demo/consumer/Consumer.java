@@ -22,20 +22,24 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
-import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.SubscribableChannel;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
+
+import static demo.consumer.Consumer.MyChannels.ERROR_INPUT;
+import static org.springframework.cloud.stream.messaging.Sink.INPUT;
+import static org.springframework.kafka.support.KafkaHeaders.OFFSET;
+import static org.springframework.kafka.support.KafkaHeaders.RECEIVED_PARTITION_ID;
 
 @EnableBinding({Sink.class, Consumer.MyChannels.class})
 public class Consumer {
 
     private static final Logger logger = LoggerFactory.getLogger(Consumer.class);
 
-    @StreamListener(Sink.INPUT)
+    @StreamListener(INPUT)
     public void listen(@Payload String in,
-                       @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
-                       @Header(KafkaHeaders.OFFSET) int offset) {
+                       @Header(RECEIVED_PARTITION_ID) int partition,
+                       @Header(OFFSET) int offset) {
         if (in.equals("Zoe")) {
             throw new IllegalArgumentException(in);
         }
@@ -43,7 +47,7 @@ public class Consumer {
         logger.info(String.format("%-10s received from partition %-2d : %-100d", in, partition, offset));
     }
 
-    @StreamListener(MyChannels.ERROR_INPUT)
+    @StreamListener(ERROR_INPUT)
     public void listenOnErrors(@Payload String in,
                                @Header("x-exception-message") byte[] exceptionMessage,
                                @Header("x-exception-stacktrace") byte[] stacktrace) {
